@@ -1,0 +1,30 @@
+release/*.*
+debug/*.*
+src/reddragoncoind
+.*.swp
+*.*~*
+*.bak
+*.bat
+*.rej
+*.orig
+*.a
+*.o
+*.so
+*.patch
+*.Debug
+*.Release
+*.old
+
+# Compilation and Qt preprocessor part
+*.qm
+Makefile
+RedDragonCoin-Qt.app
+
+# Qt creator
+*.pro.user
+
+# Mac specific
+.DS_Store
+build
+
+!src/leveldb*/Makefile
