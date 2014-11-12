@@ -11,7 +11,6 @@
 #include "init.h"
 #include "ui_interface.h"
 #include "kernel.h"
-//#include "smessage.h"
 #include "zerocoin/Zerocoin.h"
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/filesystem.hpp>
@@ -47,7 +46,7 @@ unsigned int nStakeMinAge = 12 * 60 * 60; // Minimum 12 hours
 unsigned int nStakeMaxAge = -1; // Unlimited Max
 unsigned int nModifierInterval = 10 * 60; 
 
-int nCoinbaseMaturity = 120;
+int nCoinbaseMaturity = 100;
 
 CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
@@ -2543,9 +2542,9 @@ bool LoadBlockIndex(bool fAllowNew)
         if (!fAllowNew)
             return false;
 
-        const char* pszTimestamp = "Red Dragon Coin 08.10.2014";
+        const char* pszTimestamp = "Red Dragon Coin 10.11.2014";
         CTransaction txNew;
-        txNew.nTime = 1415268571;
+        txNew.nTime = 1415431160;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 0 << CBigNum(42) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
@@ -2555,9 +2554,9 @@ bool LoadBlockIndex(bool fAllowNew)
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1415268571;
+        block.nTime    = 1415431160;
         block.nBits    = bnProofOfWorkLimit.GetCompact();
-        block.nNonce   = 38499;
+        block.nNonce   = 2039214;
 
 		
 	if(fTestNet)
@@ -2589,7 +2588,7 @@ bool LoadBlockIndex(bool fAllowNew)
 		
 		//// debug print
         ///
-        assert(block.hashMerkleRoot == uint256("0x6e26744833c3228bec1adfd4f56ed9f20e5fac4531b6c6efba875db15a365a42"));
+        assert(block.hashMerkleRoot == uint256("0xff29d12bf23407fa24ba36ecedbcbea272e88d33854ec645708516be3281193a"));
         block.print();
         assert(block.GetHash() == (!fTestNet ? hashGenesisBlock : hashGenesisBlockTestNet));
         assert(block.CheckBlock());
@@ -3371,8 +3370,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
             mapAlreadyAskedFor.erase(inv);
         if (block.nDoS) pfrom->Misbehaving(block.nDoS);
         
-//        if (fSecMsgEnabled)
-//            SecureMsgScanBlock(block);
     }
 
 
@@ -3506,10 +3503,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 
     else
     {
-//        if (fSecMsgEnabled)
-//            SecureMsgReceiveData(pfrom, strCommand, vRecv);
         // Ignore unknown commands for extensibility
-
     }
 
 
@@ -3800,9 +3794,6 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
         if (!vGetData.empty())
             pto->PushMessage("getdata", vGetData);
         
-//        if (fSecMsgEnabled) 
-//           SecureMsgSendData(pto, fSendTrickle);
-
     }
     return true;
 }

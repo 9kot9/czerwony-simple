@@ -1,5 +1,5 @@
-#ifndef JSON_SPIRIT_READER_MAL
-#define JSON_SPIRIT_READER_MAL
+#ifndef JSON_SPIRIT_READER_TEMPLATE
+#define JSON_SPIRIT_READER_TEMPLATE
 
 //          Copyright John W. Wilkinson 2007 - 2009.
 // Distributed under the MIT License, see accompanying file LICENSE.txt
